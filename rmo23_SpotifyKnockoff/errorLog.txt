@@ -1,0 +1,4 @@
+Date and Time: 2018/02/13 20:21:14, Fuck?
+
+Date and Time: 2018/02/13 20:28:39, java.lang.ArithmeticException: / by zero
+
