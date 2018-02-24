@@ -13,16 +13,51 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table (name = "album")
 public class Album {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	
+	@Column (name = "album_id")
 	private String albumID;
+	
+	@Column (name = "title")
 	private String title;
+	
+	@Column (name = "release_date")
 	private String releaseDate;
+	
+	@Column (name = "cover_image_path")
 	private String coverImagePath;
+	
+	@Column (name = "recording_company_name")
 	private String recordingCompany;
+	
+	@Column (name = "number_of_tracks")
 	private int numberOfTracks;
+	
+	@Column (name = "pmrc_rating")
 	private String pmrcRating;
+	
+	@Column (name = "length")
 	private double length;
+	
+	@Transient
 	private Hashtable<String,Song> albumSongs = new Hashtable<String,Song>();
+	
+	public Album() {
+		super();
+		this.albumID = UUID.randomUUID().toString();
+	}
 
 
 	/*
@@ -39,6 +74,7 @@ public class Album {
 	 * @throws SQLException
 	 */
 	public Album(String title, String releaseDate, String recordingCompany, int numOfTracks, String pmcrRating, int length) {
+		super();
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.recordingCompany = recordingCompany;
@@ -87,6 +123,7 @@ public class Album {
 	 */
 	public Album(String albumID, String title, String coverImagePath, String releaseDate,
 			String recordingCompany, int numberOfTracks, String pmrcRating, int length) {
+		super();
 		Vector<Vector<Album>> albumTable = new Vector<>();
 		this.albumID = albumID;
 		this.title = title;
@@ -108,6 +145,7 @@ public class Album {
 	 * @throws SQLException
 	 */
 	public Album(String albumID) {
+		super();
 		String sql = "Select * from albums where album_id = '" + albumID + "';";
 		albumSongs = new Hashtable<>();
 		DbUtilities db = new DbUtilities();
@@ -298,5 +336,53 @@ public class Album {
 	 */
 	public Hashtable getAlbumSongs() {
 		return albumSongs;
+	}
+	public String getAlbumID() {
+		return albumID;
+	}
+
+
+	public void setAlbumID(String albumID) {
+		this.albumID = albumID;
+	}
+
+
+	public String getPmrcRating() {
+		return pmrcRating;
+	}
+
+
+	public void setPmrcRating(String pmrcRating) {
+		this.pmrcRating = pmrcRating;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+
+	public void setRecordingCompany(String recordingCompany) {
+		this.recordingCompany = recordingCompany;
+	}
+
+
+	public void setNumberOfTracks(int numberOfTracks) {
+		this.numberOfTracks = numberOfTracks;
+	}
+
+
+	public void setLength(double length) {
+		this.length = length;
+	}
+
+
+	public void setAlbumSongs(Hashtable<String, Song> albumSongs) {
+		this.albumSongs = albumSongs;
 	}
 }

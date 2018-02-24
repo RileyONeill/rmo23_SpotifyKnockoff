@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 
 
 @Entity
-@Table (name = "SONG_TEST")
+@Table (name = "song")
 public class Song {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,14 +46,13 @@ public class Song {
 	@Column (name = "record_date")
 	private String recordDate;
 	
-	@Column (name = "album_id")
-	private String albumID;
-	
 	@Transient
 	Map<String, Artist> songArtists;
 	
+	
 	public Song() {
 		super();
+		
 	}
 	
 	/*
@@ -68,6 +67,7 @@ public class Song {
 	 * @throws SQLException
 	 */
 	public Song(String title, double length, String releaseDate, String recordDate) {
+		super();
 		this.title = title;
 		this.length = length;
 		this.releaseDate = releaseDate;
@@ -108,6 +108,7 @@ public class Song {
 	 * @throws SQLException
 	 */
 	public Song(String songID, String title, double length, String releaseDate, String recordDate) {
+		super();
 		Vector<Vector<Song>> songTable = new Vector<>();
 		this.title = title;
 		this.length = length;
@@ -136,9 +137,6 @@ public class Song {
 		this.recordDate = recordDate;
 	}
 
-	public void setAlbumID(String albumID) {
-		this.albumID = albumID;
-	}
 
 	public void setSongArtists(Map<String, Artist> songArtists) {
 		this.songArtists = songArtists;
@@ -235,12 +233,7 @@ public class Song {
 	public String getRecordDate() {
 		return recordDate;
 	}
-	/*
-	 * @return albumID
-	 */
-	public String getAlbumID() {
-		return albumID;
-	}
+
 	/*
 	 * @return songArtists
 	 */

@@ -7,16 +7,37 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.Vector;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /*
  * @author Riley O'Neill
  * @version 1.0
  */
 
+@Entity
+@Table (name = "artist")
 public class Artist {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	@Column (name = "artist_id")
 	private String artistID;
+	
+	@Column (name = "first_name")
 	private String firstName;
+	
+	@Column (name = "last_name")
 	private String lastName;
+	
+	@Column (name = "band_name")
 	private String bandName;
+	
+	@Column (name = "bio")
 	private String bio;
 	
 	/*
@@ -28,7 +49,14 @@ public class Artist {
 	 * @param bandName
 	 * @throws SQLException
 	 */
+	
+	public Artist() {
+		super();
+		this.artistID = UUID.randomUUID().toString();
+	}
+	
 	public Artist(String firstName, String lastName, String bandName) {
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.bandName = bandName;
@@ -66,6 +94,7 @@ public class Artist {
 	 * @param bandName
 	 */
 	public Artist(String artistID, String firstName, String lastName, String bandName) {
+		super();
 		Vector<Vector<Artist>> artistTable = new Vector<>();
 		this.artistID = artistID;
 		this.firstName = firstName;
@@ -79,6 +108,7 @@ public class Artist {
 	 * @throws SQLException
 	 */
 	public Artist(String artistID) {
+		super();
 		String sql = "Select * from artist where artist_id = '" + artistID + "';";
 		System.out.println(sql);
 		DbUtilities db = new DbUtilities();
@@ -120,6 +150,29 @@ public class Artist {
 		}
 	}
 	
+	/*
+	 * @param artistID
+	 */
+	public void setArtistID(String artistID) {
+		this.artistID = artistID;
+	}
+	
+	public String getArtistID() {
+		return artistID;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setBandName(String bandName) {
+		this.bandName = bandName;
+	}
+
 	/*
 	 * @return artistID
 	 */
